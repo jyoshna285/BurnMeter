@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up | BurnMeter</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: #0f172a;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .signup-container {
+      background-color: #1e293b;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 320px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    }
+
+    h2 {
+      color: #f97316;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
+      border-radius: 8px;
+      border: none;
+      background-color: #334155;
+      color: white;
+      font-size: 1rem;
+    }
+
+    input::placeholder {
+      color: #94a3b8;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      background-color: #3b82f6;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #2563eb;
+    }
+
+    .google-signup {
+      margin-top: 1.2rem;
+      padding: 0.5rem;
+      border: 1px solid #94a3b8;
+      border-radius: 8px;
+      background-color: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .google-signup img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .google-signup a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    a[href="/login"] {
+      display: block;
+      color: #cbd5e1;
+      text-align: center;
+      margin-top: 1.2rem;
+      text-decoration: none;
+    }
+
+    a[href="/login"]:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <form class="signup-container" method="POST" action="/signup">
+    <h2>Sign Up</h2>
+    <input type="text" name="username" placeholder="Username" required />
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <input type="password" name="confirm_password" placeholder="Confirm Password" required />
+    <button type="submit">Sign Up</button>
+
+    <div class="google-signup">
+      <a href="{{ url_for('google.login') }}">
+        <img src="{{ url_for('static', filename='google-icon.png') }}" alt="Google" />
+        Sign up with Google
+      </a>
+    </div>
+
+    <a href="/login">Already have an account? Login</a>
+  </form>
+
+</body>
+</html>

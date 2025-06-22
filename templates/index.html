@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BuurnMeter 🔥</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0f172a;
+      color: white;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #1e293b;
+      color: #f97316;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    .container {
+      padding: 1rem 2rem;
+    }
+
+    .goal-bar {
+      background-color: #1e293b;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .goal-bar .progress {
+      background: #e5e7eb;
+      height: 8px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    .progress-inner {
+      height: 100%;
+      background-color: #f97316;
+      width: 49%;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card {
+      background-color: #1e293b;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .card span {
+      font-size: 1.2rem;
+      color: #22c55e;
+    }
+
+    .card.orange span {
+      color: #f97316;
+    }
+
+    .activity-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .activity-buttons button {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background-color: #334155;
+      color: white;
+      font-weight: bold;
+    }
+
+    .activity-buttons button.active {
+      background-color: #f97316;
+    }
+
+    .form-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+  input, select {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  width: 100%;
+  background-color: #334155;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+input::placeholder,
+select:invalid {
+  color: white;
+  opacity: 0.7; /* for placeholder effect */
+}
+
+.form-submit {
+  margin-top: 1rem;
+  background-color: #f97316;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-submit:hover {
+  background-color: #ea580c;
+}
+
+    .weekly-progress, .recent-achievements {
+      background-color: #1e293b;
+      padding: 1rem;
+      border-radius: 12px;
+    }
+
+    .bar {
+      background-color: #e5e7eb;
+      height: 8px;
+      border-radius: 5px;
+      margin-top: 4px;
+    }
+
+    .bar-inner {
+      height: 100%;
+      background: linear-gradient(to right, #f97316, #f43f5e);
+    }
+
+    .achievement-item {
+      margin: 0.5rem 0;
+    }
+
+    .prediction-result {
+      margin-top: 1rem;
+      color: #4ade80;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <div>🔥 BuurnMeter</div>
+    <input type="text" placeholder="Search workouts..." style="padding: 0.5rem; border-radius: 8px; border: none;">
+  </div>
+
+  <div class="container">
+    <div class="goal-bar">
+      <h3>Today's Goal</h3>
+      <p>255 calories to go!</p>
+      <div class="progress">
+        <div class="progress-inner"></div>
+      </div>
+      <span style="float: right; color: #f97316;">245 / 500 cal</span>
+    </div>
+
+    <div class="grid">
+      <div class="card"><h2>Weekly Streak</h2><span>7 days</span></div>
+      <div class="card"><h2>This Week</h2><span style="color:#3b82f6;">2,450 cal</span></div>
+      <div class="card"><h2>Total Workouts</h2><span style="color:#d946ef;">48</span></div>
+      <div class="card orange"><h2>Active Time</h2><span>3.5 hrs</span></div>
+    </div>
+
+    <h2>Select Activity</h2>
+    <div class="activity-buttons">
+      <button class="active">Walking</button>
+      <button>Running</button>
+      <button>Cycling</button>
+      <button>Gym</button>
+    </div>
+
+    <h2>Calorie Burn Predictor (walking)</h2>
+    <form method="POST" action="/predict">
+
+      <div class="form-group">
+        <input type="number" name="weight" placeholder="Weight (kg)" required>
+        <input type="number" name="height" placeholder="Height (cm)" required>
+        <input type="number" name="age" placeholder="Age" required>
+        <input type="number" name="duration" placeholder="Duration (minutes)" required>
+        <select name="intensity">
+          <option value="Light">Light</option>
+          <option value="Moderate" selected>Moderate</option>
+          <option value="Intense">Intense</option>
+        </select>
+        <select name="gender">
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      <button class="form-submit">Predict Calories</button>
+    </form>
+
+    {% if predicted %}
+      <div class="prediction-result">🔥 Estimated Calories Burned: {{ predicted }} cal</div>
+    {% endif %}
+
+    <div class="grid" style="margin-top: 2rem;">
+      <div class="weekly-progress">
+        <h3>Weekly Progress</h3>
+        <div>Mon: 420 cal<div class="bar"><div class="bar-inner" style="width: 84%;"></div></div></div>
+        <div>Tue: 380 cal<div class="bar"><div class="bar-inner" style="width: 76%;"></div></div></div>
+        <div>Wed: 520 cal<div class="bar"><div class="bar-inner" style="width: 100%;"></div></div></div>
+        <div>Thu: 310 cal<div class="bar"><div class="bar-inner" style="width: 62%;"></div></div></div>
+        <div>Fri: 450 cal<div class="bar"><div class="bar-inner" style="width: 90%;"></div></div></div>
+        <div>Sat: 600 cal<div class="bar"><div class="bar-inner" style="width: 100%;"></div></div></div>
+        <div>Sun: 245 cal<div class="bar"><div class="bar-inner" style="width: 49%;"></div></div></div>
+      </div>
+
+      <div class="recent-achievements">
+        <h3>Recent Achievements</h3>
+        <div class="achievement-item">🏅 7-Day Streak - <span style="color:#4ade80;">Unlocked today</span></div>
+        <div class="achievement-item">🎯 Weekly Goal - <span style="color:#4ade80;">Unlocked today</span></div>
+        <div class="achievement-item">🚀 Personal Best - <span style="color:#4ade80;">Unlocked today</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('.activity-buttons button');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
