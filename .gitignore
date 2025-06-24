@@ -1,8 +1,17 @@
+# Ignore Python cache
 __pycache__/
 *.pyc
-instance/
+
+# Ignore development environment secrets
 .env
-users.db
-.DS_Store
-*.sqlite3
+
+# Ignore logs
 *.log
+
+# Allow users.db (your SQLite file)
+# Previously ignored: users.db and *.sqlite3 — we remove those
+# So that Railway/GitHub can include it in deployment
+
+# Optional: ignore runtime-specific folders
+instance/
+.DS_Store
